@@ -23,13 +23,14 @@ class AdminController extends AbstractController
         $adminId = $this->getUser()->getId();
 
         return $this->render('admin/teachers.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->findByRole('TEACHER'),
             'adminId' => $adminId,
+            'currentRoute' => 'admin_teachers',
         ]);
     }
 
     /**
-     * @Route("/teachers/new", name="admin_teacher_new")
+     * @Route("/teachers/new", name="admin_new_teacher")
      */
     public function createTeacher(Request $request): Response
     {
@@ -39,20 +40,147 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $user->setRoles(array("ROLE_TEACHER"));
+            $user->setPassword(password_hash('password', 1));
+
             $entityManager->persist($user);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_teachers');
         }
 
-        return $this->render('admin/teacher_new.html.twig', [
+        return $this->render('admin/new_teacher.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/anyUser/{id}", name="admin_delete", methods={"DELETE"})
+     * @Route("/students", name="admin_students")
+     */
+    public function showAllStudents(UserRepository $userRepository)
+    {
+        $adminId = $this->getUser()->getId();
+
+        return $this->render('admin/students.html.twig', [
+            'users' => $userRepository->findByRole('STUDENT'),
+            'adminId' => $adminId,
+            'currentRoute' => 'admin_students',
+        ]);
+    }
+
+    /**
+     * @Route("/students/new", name="admin_new_student")
+     */
+    public function createStudent(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user->setRoles(array("ROLE_STUDENT"));
+            $user->setPassword(password_hash('password', 1));
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_students');
+        }
+
+        return $this->render('admin/new_student.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/parents", name="admin_parents")
+     */
+    public function showAllParents(UserRepository $userRepository)
+    {
+        $adminId = $this->getUser()->getId();
+
+        return $this->render('admin/parents.html.twig', [
+            'users' => $userRepository->findByRole('PARENT'),
+            'adminId' => $adminId,
+            'currentRoute' => 'admin_parents',
+        ]);
+    }
+
+    /**
+     * @Route("/parents/new", name="admin_new_parent")
+     */
+    public function createParent(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user->setRoles(array("ROLE_PARENT"));
+            $user->setPassword(password_hash('password', 1));
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_parents');
+        }
+
+        return $this->render('admin/new_parent.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admins", name="admin_admins")
+     */
+    public function showAllAdmins(UserRepository $userRepository)
+    {
+        $adminId = $this->getUser()->getId();
+
+        return $this->render('admin/admins.html.twig', [
+            'users' => $userRepository->findByRole("ADMIN"),
+            'adminId' => $adminId,
+            'currentRoute' => 'admin_admins',
+        ]);
+    }
+
+    /**
+     * @Route("/admins/new", name="admin_new_admin")
+     */
+    public function createAdmin(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user->setRoles(array("ROLE_ADMIN"));
+            $user->setPassword(password_hash('password', 1));
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_admins');
+        }
+
+        return $this->render('admin/new_admin.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/anyUser/{id}/{nextRoute}", name="admin_delete", methods={"DELETE"})
      */
     public function deleteAnyUser(Request $request, User $user): Response
     {
@@ -64,6 +192,6 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin_teachers');
+        return $this->redirectToRoute($request->get('nextRoute'));
     }
 }

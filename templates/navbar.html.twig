@@ -18,6 +18,15 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ absolute_url(path('admin_teachers')) }}">Mokytojai</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('admin_students')) }}">Studentai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('admin_parents')) }}">Tėvai/Globėjai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('admin_admins')) }}">Administratoriai</a>
+                    </li>
                 {% endif %}
 
                 {% if app.user %}

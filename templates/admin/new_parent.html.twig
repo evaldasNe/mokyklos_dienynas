@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mokytojai{% endblock %}
+{% block title %}Naujas tėvas/globėjas{% endblock %}
 
 {% block body %}
 
     <div class="container">
-        <h1>Sukurti naujo mokytojo paskyrą</h1>
+        <h1>Sukurti naujo tėvo/globėjo paskyrą</h1>
         <div class="container" style="width: 500px">
 
             {{ include('user/_form.html.twig') }}
 
-            <a class="btn btn-secondary" href="{{ absolute_url(path('admin_teachers')) }}">Atgal</a>
+            <a class="btn btn-secondary" href="{{ absolute_url(path('admin_parents')) }}">Atgal</a>
         </div>
     </div>
 

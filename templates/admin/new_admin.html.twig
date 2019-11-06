@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Naujas administratorius{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Sukurti naujo administratoriaus paskyrą</h1>
+        <div class="container" style="width: 500px">
+
+            {{ include('user/_form.html.twig') }}
+
+            <a class="btn btn-secondary" href="{{ absolute_url(path('admin_admins')) }}">Atgal</a>
+        </div>
+    </div>
+
+{% endblock %}
