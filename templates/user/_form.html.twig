@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+
+    {{ form_label(form.email, 'El. paštas') }}
+    {{ form_widget(form.email) }}
+    {{ form_label(form.name, 'Vardas') }}
+    {{ form_widget(form.name) }}
+    {{ form_label(form.lastName, 'Pavardė') }}
+    {{ form_widget(form.lastName) }}
+    {{ form_label(form.birthdate, 'Gimimo data') }}
+    {{ form_widget(form.birthdate) }}
+    {{ form_label(form.city, 'Miestas') }}
+    {{ form_widget(form.city) }}
+    {{ form_label(form.address, 'Adresas') }}
+    {{ form_widget(form.address) }}
+    {{ form_label(form.postcode, 'Pašto kodas') }}
+    {{ form_widget(form.postcode) }}
+
+    <button class="btn btn-primary">{{ button_label|default('Baigti') }}</button>
+{{ form_end(form) }}

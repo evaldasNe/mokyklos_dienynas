@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('admin_delete', {'id': user.id}) }}"
+      onsubmit="return confirm('Ar tikrai norite pašalinti šią paskyrą?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+    <button class="btn btn-danger">Pašalinti</button>
+</form>

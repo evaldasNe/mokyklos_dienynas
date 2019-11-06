@@ -13,7 +13,7 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Atsijungti</a>
         </div>
     {% endif %}
-    <div class="container">
+    <div class="container" style="width: 500px">
         <h1 class="h3 mb-3 font-weight-normal">Prisijungimas</h1>
         <label for="inputEmail">El. paštas</label>
         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
