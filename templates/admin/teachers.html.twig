@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mokytojai{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <form>
+        <div class="form-group" style="width: 300px">
+            <input type="text" class="form-control" id="user_last_name" placeholder="Įveskite pavardę">
+            <button type="submit" class="btn btn-primary">Ieškoti</button>
+        </div>
+    </form>
+    <h1>Mokytojai</h1>
+    <div class="example-wrapper table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">El. paštas</th>
+                <th scope="col">Vardas</th>
+                <th scope="col">Pavardė</th>
+                <th scope="col">Gimimo data</th>
+                <th scope="col">Miestas</th>
+                <th scope="col">Adresas</th>
+                <th scope="col">Pašto kodas</th>
+                <th scope="col">Galimi veiksmai</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.address }}</td>
+                <td>{{ user.postcode }}</td>
+                {% if user.id != adminId %}
+                    <td>
+                        {{ include('user/_delete_form.html.twig') }}
+                    </td>
+                    {% else %}
+                        <td></td>
+                {% endif %}
+            </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">Nėra duomenų</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="{{ absolute_url(path('admin_new_teacher')) }}">Sukurti naują paskyrą</a>
+</div>
+
+{% endblock %}
