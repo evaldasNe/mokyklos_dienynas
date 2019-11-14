@@ -17,7 +17,7 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <td>{{ user.name}}</td>
+                        <td>{{ user.email}}</td>
                         <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td>
                         <td>{{ user.city }}</td>
                     </tr>
@@ -27,4 +27,7 @@
                     </tr>
                 {% endfor %}
                 </tbody>
+        <div>
+        <a class="btn btn-primary" href="{{ absolute_url(path('admin_new_teacher')) }}">Ištrinti žinute</a>
+    </div>
 {% endblock %}

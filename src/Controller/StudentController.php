@@ -11,171 +11,68 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin")
+ * @Route("/student")
  */
-class AdminController extends AbstractController
+class StudentController extends AbstractController
 {
     /**
-     * @Route("/teachers", name="admin_teachers")
+     * @Route("/remarks", name="student_remark")
      */
     public function showAllTeachers(UserRepository $userRepository)
     {
-        $adminId = $this->getUser()->getId();
 
-        return $this->render('admin/teachers.html.twig', [
-            'users' => $userRepository->findByRole('TEACHER'),
-            'adminId' => $adminId,
-            'currentRoute' => 'admin_teachers',
+        return $this->render('student/remark.html.twig', [
+            'users' => $userRepository->findByRole('TEACHER')
+
         ]);
     }
-
     /**
-     * @Route("/teachers/new", name="admin_new_teacher")
-     */
-    public function createTeacher(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $user->setRoles(array("ROLE_TEACHER"));
-            $user->setPassword(password_hash('password', 1));
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_teachers');
-        }
-
-        return $this->render('admin/new_teacher.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/students", name="admin_students")
+     * @Route("/homework", name="student_homework")
      */
     public function showAllStudents(UserRepository $userRepository)
     {
-        $adminId = $this->getUser()->getId();
-
-        return $this->render('admin/students.html.twig', [
-            'users' => $userRepository->findByRole('STUDENT'),
-            'adminId' => $adminId,
-            'currentRoute' => 'admin_students',
+        return $this->render('student/homework.html.twig', [
+            'users' => $userRepository->findByRole('ADMIN')
         ]);
     }
-
     /**
-     * @Route("/students/new", name="admin_new_student")
-     */
-    public function createStudent(Request $request): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $user->setRoles(array("ROLE_STUDENT"));
-            $user->setPassword(password_hash('password', 1));
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_students');
-        }
-
-        return $this->render('admin/new_student.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/parents", name="admin_parents")
+     * @Route("/timetable", name="student_timetable")
      */
     public function showAllParents(UserRepository $userRepository)
     {
-        $adminId = $this->getUser()->getId();
 
-        return $this->render('admin/parents.html.twig', [
+        return $this->render('student/timetable.html.twig', [
             'users' => $userRepository->findByRole('PARENT'),
-            'adminId' => $adminId,
-            'currentRoute' => 'admin_parents',
         ]);
     }
 
     /**
-     * @Route("/parents/new", name="admin_new_parent")
+     * @Route("/gradelist", name="student_gradelist")
      */
-    public function createParent(Request $request): Response
+    public function showgradelist(UserRepository $userRepository)
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $user->setRoles(array("ROLE_PARENT"));
-            $user->setPassword(password_hash('password', 1));
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_parents');
-        }
-
-        return $this->render('admin/new_parent.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+        return $this->render('student/gradelist.html.twig', [
+            'users' => $userRepository->findByRole('PARENT'),
         ]);
     }
 
     /**
-     * @Route("/admins", name="admin_admins")
+     * @Route("/teacherlist", name="student_teacherlist")
      */
-    public function showAllAdmins(UserRepository $userRepository)
+    public function showTeachers(UserRepository $userRepository)
     {
-        $adminId = $this->getUser()->getId();
-
-        return $this->render('admin/admins.html.twig', [
-            'users' => $userRepository->findByRole("ADMIN"),
-            'adminId' => $adminId,
-            'currentRoute' => 'admin_admins',
+        return $this->render('student/teacherlist.html.twig', [
+            'users' => $userRepository->findByRole("TEACHER")
         ]);
     }
-
     /**
-     * @Route("/admins/new", name="admin_new_admin")
+     * @Route("/student/messenger", name="student_messenger")
      */
-    public function createAdmin(Request $request): Response
+    public function Messenger(UserRepository $userRepository)
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $user->setRoles(array("ROLE_ADMIN"));
-            $user->setPassword(password_hash('password', 1));
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_admins');
-        }
-
-        return $this->render('admin/new_admin.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+        return $this->render('student/messenger.html.twig', [
+            'users' => $userRepository->findByRole('PARENT'),
         ]);
     }
 

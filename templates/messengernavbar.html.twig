@@ -1,61 +1,26 @@
 {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-light bg-light sticky-right">
         <a class="navbar-brand" href="{{ absolute_url(path('home_page')) }}">
-		<img src="https://image.flaticon.com/icons/svg/25/25694.svg"
-                 	width="30"
-                 	height="30"
-                 	class="d-inline-block align-top"
-                 	alt="Home page icon"
-            	>
 	</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('admin_teachers')) }}">Mokytojai</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('admin_students')) }}">Studentai</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('admin_parents')) }}">Tėvai/Globėjai</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('admin_admins')) }}">Administratoriai</a>
-                    </li>
-                {% endif %}
+<style>
+    .topnav-right {
+        float: left;
+    }
+</style>
+        <div>
+            <ul class="navbar-nav mr-auto topnav-right ">
                 {% if is_granted('ROLE_STUDENT') %}
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('student_remark')) }}">Pastabos</a>
+                        <a class="nav-link" href="{{ absolute_url(path('messenger_openmesseges')) }}">Mokyklos pranešimai</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('student_homework')) }}">Namų darbai</a>
+                        <a class="nav-link" href="{{ absolute_url(path('messenger_privatemesseges')) }}">Asmeniniai pranešimai</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('student_timetable')) }}">Pamokų tvarkaraštis</a>
+                        <a class="nav-link" href="{{ absolute_url(path('messenger_writemesseges')) }}">Rašyti pranešimą</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('student_teacherlist')) }}">Mokytojų kontaktai</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ absolute_url(path('student_messenger')) }}">Pranešimai</a>
-                    </li>
-                {% endif %}
 
-                {% if app.user %}
-                    <li class="nav-item active">
-                        <a class="nav-link text-danger" href="{{ absolute_url(path('logout')) }}">Atsijungti</a>
-                    </li>
-                    {% else %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ absolute_url(path('login')) }}">Prisijungti</a>
-                        </li>
                 {% endif %}
-
             </ul>
         </div>
     </nav>
