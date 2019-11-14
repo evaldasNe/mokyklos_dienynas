@@ -48,6 +48,26 @@
                         <a class="nav-link" href="{{ absolute_url(path('student_gradelist')) }}">Pažymiai</a>
                     </li>
                 {% endif %}
+                {% if is_granted('ROLE_PARENT') %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('parent_studentRemark')) }}">Pastabos</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('parent_studentHomework')) }}">Namų darbai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('parent_studentTimetable')) }}">Pamokų tvarkaraštis</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('parent_teacherList')) }}">Mokytojų kontaktai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('parent_messenger')) }}">Pranešimai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('parent_studentGradeList')) }}">Pažymiai</a>
+                    </li>
+                {% endif %}
 
                 {% if app.user %}
                     <li class="nav-item active">
