@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pamokų tvarkaraštis{% endblock %}
+
+{% block body %}
+
+
+        <h1>Pamokų tvarkaraštis</h1>
+        <div class="example-wrapper table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Pirmadienis</th>
+                    <th scope="col">Antradienis</th>
+                    <th scope="col">Trečiadienis</th>
+                    <th scope="col">Ketvirtadienis</th>
+                    <th scope="col">Penktadienis</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+
+                        <!-- <td>{{ user.city }}</td>-->
+                        <!-- <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td> -->
+                        <!-- <td>{{ user.city }}</td> -->
+                    </tr>
+                {% if users == 0 %}
+                    <tr>
+                        <td colspan="11">Nėra duomenų</td>
+                    </tr>
+                {% endif %}
+
+                {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}

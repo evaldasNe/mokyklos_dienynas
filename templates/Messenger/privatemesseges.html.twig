@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('messengernavbar.html.twig') }}
+    <div class="container">
+
+        <h1>Vieši pranešimai</h1>
+        <div class="example-wrapper table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Kas parašė</th>
+                    <th scope="col">Kada parašė</th>
+                    <th scope="col">Žinutė</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.email}}</td>
+                        <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td>
+                        <td>{{ user.city }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">Nėra duomenų</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+        <div>
+        <a class="btn btn-primary" href="{{ absolute_url(path('admin_new_teacher')) }}">Ištrinti žinute</a>
+    </div>
+{% endblock %}

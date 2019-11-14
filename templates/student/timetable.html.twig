@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Namų darbai{% endblock %}
+
+{% block body %}
+
+
+        <h1>Namų darbai</h1>
+        <div class="example-wrapper table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Uždavimo data</th>
+                    <th scope="col">Dalykas</th>
+                    <th scope="col">Iki kada reikia padaryti</th>
+                    <th scope="col">Aprašymas</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+
+                        <!-- <td>{{ user.city }}</td>-->
+                        <!-- <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td> -->
+                        <!-- <td>{{ user.city }}</td> -->
+                    </tr>
+                {% if users == 0 %}
+                    <tr>
+                        <td colspan="11">Nėra duomenų</td>
+                    </tr>
+                {% endif %}
+
+                {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}
