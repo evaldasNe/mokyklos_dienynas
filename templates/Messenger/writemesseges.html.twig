@@ -2,32 +2,23 @@
 
 {% block body %}
     {{ include('messengernavbar.html.twig') }}
-    <div class="container">
+        <?php } ?>
+                <legend>Rašyti žinute</legend>
+                <p>
+                    <label class="field" for="nr">Gavėjas<?php echo in_array('nr', $required) ? ></label>
+                    <input type="text" id="nr" name="nr" class="textbox textbox-70" value=""></p>
+                </p>
 
-        <h1>Vieši pranešimai</h1>
-        <div class="example-wrapper table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Kas parašė</th>
-                    <th scope="col">Kada parašė</th>
-                    <th scope="col">Žinutė</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user in users %}
-                    <tr>
-                        <td>{{ user.email}}</td>
-                        <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td>
-                        <td>{{ user.city }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="11">Nėra duomenų</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-        <div>
-        <a class="btn btn-primary" href="{{ absolute_url(path('admin_new_teacher')) }}">Ištrinti žinute</a>
+                <p>
+                    <label class="field" for="nr">Žinutė<?php echo in_array('nr', $required) ? ></label>
+                    <input type="text" id="nr" name="nr" class="textbox textbox-70" value=""></p>
+                </p>
+            <p>
+                <input type="submit" class="submit button" name="submit" value="Siusti">
+            </p>
+            <?php if(isset($data['nr'])) { ?>
+            <input type="hidden" name="nr" value="<?php echo $data['nr']; ?>" />
+            <?php } ?>
+
     </div>
 {% endblock %}

@@ -28,6 +28,26 @@
                         <a class="nav-link" href="{{ absolute_url(path('admin_admins')) }}">Administratoriai</a>
                     </li>
                 {% endif %}
+                {% if is_granted('ROLE_STUDENT') %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('student_remark')) }}">Pastabos</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('student_homework')) }}">Namų darbai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('student_timetable')) }}">Pamokų tvarkaraštis</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('student_teacherlist')) }}">Mokytojų kontaktai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('student_messenger')) }}">Pranešimai</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ absolute_url(path('student_gradelist')) }}">Pažymiai</a>
+                    </li>
+                {% endif %}
 
                 {% if app.user %}
                     <li class="nav-item active">
