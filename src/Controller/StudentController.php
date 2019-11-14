@@ -67,7 +67,7 @@ class StudentController extends AbstractController
         ]);
     }
     /**
-     * @Route("/student/messenger", name="student_messenger")
+     * @Route("/messenger", name="student_messenger")
      */
     public function Messenger(UserRepository $userRepository)
     {
