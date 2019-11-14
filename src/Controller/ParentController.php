@@ -70,7 +70,7 @@ class ParentController extends AbstractController
      */
     public function showStudentTimetable(UserRepository $userRepository)
     {
-        return $this->render('student/studentTimetable.html.twig', [
+        return $this->render('parent/studentTimetable.html.twig', [
             'users' => $userRepository->findByRole('STUDENT'),
         ]);
     }
