@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UsersFilterType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,15 +17,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/teachers", name="admin_teachers")
+     * @Route("/teachers", name="admin_teachers", methods={"GET", "POST"})
      */
-    public function showAllTeachers(UserRepository $userRepository)
+    public function showAllTeachers(UserRepository $userRepository, Request $request): Response
     {
+        $role = 'TEACHER';
+        $form = $this->createForm(UsersFilterType::class);
+        $form->handleRequest($request);
         $adminId = $this->getUser()->getId();
 
+        if ($form->isSubmitted() && $form->isValid()){
+            $last_name = $request->request->get('users_filter')['last_name'];
+
+            $users = $userRepository->findByRoleAndLastName($role, $last_name);
+        } else {
+            $users = $userRepository->findByRole($role);
+        }
+
         return $this->render('admin/teachers.html.twig', [
-            'users' => $userRepository->findByRole('TEACHER'),
+            'users' => $users,
             'adminId' => $adminId,
+            'form' => $form->createView(),
             'currentRoute' => 'admin_teachers',
         ]);
     }
@@ -57,15 +70,26 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/students", name="admin_students")
+     * @Route("/students", name="admin_students", methods={"GET", "POST"})
      */
-    public function showAllStudents(UserRepository $userRepository)
+    public function showAllStudents(UserRepository $userRepository, Request $request): Response
     {
+        $role = 'STUDENT';
+        $form = $this->createForm(UsersFilterType::class);
+        $form->handleRequest($request);
         $adminId = $this->getUser()->getId();
 
+        if ($form->isSubmitted() && $form->isValid()){
+            $last_name = $request->request->get('users_filter')['last_name'];
+            $users = $userRepository->findByRoleAndLastName($role, $last_name);
+        } else {
+            $users = $userRepository->findByRole($role);
+        }
+
         return $this->render('admin/students.html.twig', [
-            'users' => $userRepository->findByRole('STUDENT'),
+            'users' => $users,
             'adminId' => $adminId,
+            'form' => $form->createView(),
             'currentRoute' => 'admin_students',
         ]);
     }
@@ -98,15 +122,27 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/parents", name="admin_parents")
+     * @Route("/parents", name="admin_parents", methods={"GET", "POST"})
      */
-    public function showAllParents(UserRepository $userRepository)
+    public function showAllParents(UserRepository $userRepository, Request $request): Response
     {
+        $role = 'PARENT';
+        $form = $this->createForm(UsersFilterType::class);
+        $form->handleRequest($request);
+
         $adminId = $this->getUser()->getId();
 
+        if ($form->isSubmitted() && $form->isValid()){
+            $last_name = $request->request->get('users_filter')['last_name'];
+            $users = $userRepository->findByRoleAndLastName($role, $last_name);
+        } else {
+            $users = $userRepository->findByRole($role);
+        }
+
         return $this->render('admin/parents.html.twig', [
-            'users' => $userRepository->findByRole('PARENT'),
+            'users' => $users,
             'adminId' => $adminId,
+            'form' => $form->createView(),
             'currentRoute' => 'admin_parents',
         ]);
     }
@@ -139,15 +175,26 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admins", name="admin_admins")
+     * @Route("/admins", name="admin_admins", methods={"GET", "POST"})
      */
-    public function showAllAdmins(UserRepository $userRepository)
+    public function showAllAdmins(UserRepository $userRepository, Request $request): Response
     {
+        $role = 'ADMIN';
+        $form = $this->createForm(UsersFilterType::class);
+        $form->handleRequest($request);
         $adminId = $this->getUser()->getId();
 
+        if ($form->isSubmitted() && $form->isValid()){
+            $last_name = $request->request->get('users_filter')['last_name'];
+            $users = $userRepository->findByRoleAndLastName($role, $last_name);
+        } else {
+            $users = $userRepository->findByRole($role);
+        }
+
         return $this->render('admin/admins.html.twig', [
-            'users' => $userRepository->findByRole("ADMIN"),
+            'users' => $users,
             'adminId' => $adminId,
+            'form' => $form->createView(),
             'currentRoute' => 'admin_admins',
         ]);
     }

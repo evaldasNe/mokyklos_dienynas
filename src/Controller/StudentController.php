@@ -75,20 +75,4 @@ class StudentController extends AbstractController
             'users' => $userRepository->findByRole('PARENT'),
         ]);
     }
-
-    /**
-     * @Route("/anyUser/{id}/{nextRoute}", name="admin_delete", methods={"DELETE"})
-     */
-    public function deleteAnyUser(Request $request, User $user): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))
-            && $this->getUser()->getId() !== $user->getId())
-        {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute($request->get('nextRoute'));
-    }
 }

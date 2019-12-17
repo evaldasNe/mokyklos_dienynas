@@ -5,12 +5,13 @@
 {% block body %}
 
     <div class="container">
-        <form>
-            <div class="form-group" style="width: 300px">
-                <input type="text" class="form-control" id="user_last_name" placeholder="Įveskite pavardę">
-                <button type="submit" class="btn btn-primary">Ieškoti</button>
-            </div>
-        </form>
+        <div style="width: 300px">
+            {{ form_start(form) }}
+            {{ form_widget(form.last_name) }}
+            <button class="btn btn-primary">{{ button_label|default('Ieškoti') }}</button>
+            {{ form_end(form) }}
+        </div>
+
         <h1>Studentai</h1>
         <div class="example-wrapper table-responsive">
             <table class="table table-striped">
