@@ -45,7 +45,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/teachers/new", name="admin_new_teacher")
      */
-    public function createTeacher(Request $request): Response
+    public function createTeacher(Request $request, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -59,6 +59,8 @@ class AdminController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
 
             return $this->redirectToRoute('admin_teachers');
         }
@@ -97,7 +99,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/students/new", name="admin_new_student")
      */
-    public function createStudent(Request $request): Response
+    public function createStudent(Request $request, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -111,6 +113,8 @@ class AdminController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
 
             return $this->redirectToRoute('admin_students');
         }
@@ -150,7 +154,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/parents/new", name="admin_new_parent")
      */
-    public function createParent(Request $request): Response
+    public function createParent(Request $request, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -164,6 +168,8 @@ class AdminController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
 
             return $this->redirectToRoute('admin_parents');
         }
@@ -202,7 +208,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admins/new", name="admin_new_admin")
      */
-    public function createAdmin(Request $request): Response
+    public function createAdmin(Request $request, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -216,6 +222,8 @@ class AdminController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
 
             return $this->redirectToRoute('admin_admins');
         }
@@ -240,5 +248,40 @@ class AdminController extends AbstractController
         }
 
         return $this->redirectToRoute($request->get('nextRoute'));
+    }
+
+    private function sendEmail(string $email, string $name, \Swift_Mailer $mailer)
+    {
+        $password = $this->generateRandomPassword();
+
+        $message = (new \Swift_Message('Jums sukurta dienyno paskyra'))
+            ->setFrom('admin@mokyklos_dienynas.com')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/registration.html.twig',
+                    [
+                        'name' => $name,
+                        'password' => $password
+                    ]
+                ),
+                'text/html'
+            )
+        ;
+
+        $mailer->send($message);
+    }
+
+    private function generateRandomPassword() {
+        $passLength = 8;
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*+-';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < $passLength; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
     }
 }
