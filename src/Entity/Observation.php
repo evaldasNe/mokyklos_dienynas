@@ -36,6 +36,11 @@ class Observation
      */
     private $addressee;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Observation
     public function setAddressee(string $addressee): self
     {
         $this->addressee = $addressee;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

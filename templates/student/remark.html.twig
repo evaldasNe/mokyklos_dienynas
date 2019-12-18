@@ -10,24 +10,22 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Vardas</th>
-                    <th scope="col">Pavardė</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Mokytojas</th>
                     <th scope="col">Dėstomas dalykas</th>
-                    <th scope="col">Data</th>
                     <th scope="col">Pastaba</th>
+                    <th scope="col">Data</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for user in users %}
                     <tr>
 
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.lastName }}</td>
-                        <!-- <td>{{ user.city }}</td>-->
-                        <!-- <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td> -->
-                        <!-- <td>{{ user.city }}</td> -->
-                        <td>{{ user.address }}</td>
-                        <td>{{ user.postcode }}</td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.teacher }}</td>
+                        <td>{{ user.subject }}</td>
+                        <td>{{ user.observationText }}</td>
+                        <td>{{ user.date ? user.date|date('Y-m-d') : '' }}</td>
                     </tr>
                 {% if users == 0 %}
                     <tr>

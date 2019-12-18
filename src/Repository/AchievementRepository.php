@@ -18,7 +18,28 @@ class AchievementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Achievement::class);
     }
-
+    public function findByStudent($value): ?array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.student = :val')
+            ->setParameter('val', $value)
+            ->orderBy('o.student', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findByDateAndStudent(string $value, string $date): ?array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.student LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->andWhere('u.date LIKE :date')
+            ->setParameter('date', '%'.$date.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Achievement[] Returns an array of Achievement objects
     //  */

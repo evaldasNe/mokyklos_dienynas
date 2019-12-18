@@ -19,6 +19,17 @@ class ScheduleRepository extends ServiceEntityRepository
         parent::__construct($registry, Schedule::class);
     }
 
+    public function findByEmailAndDay(string $value): ?array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.email LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('u.time', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Schedule[] Returns an array of Schedule objects
     //  */

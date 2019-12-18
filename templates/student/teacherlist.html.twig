@@ -5,27 +5,23 @@
 {% block body %}
 
 
-        <h1>Namų darbai</h1>
+        <h1>Mokytoju kontaktai</h1>
         <div class="example-wrapper table-responsive">
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Vardas</th>
                     <th scope="col">Pavardė</th>
-                    <th scope="col">Dėstomas dalykas</th>
                     <th scope="col">El.Paštas</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.lastname }}</td>
-                        <td>{{user.postcode  }}</td>
-                        <td>{{ user.email }}</td>
-                        <!-- <td>{{ user.name }}</td>-->
-                        <!-- <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td> -->
-                        <!-- <td>{{ user.city }}</td> -->
+                        <td>{{ user.name}}</td>
+                        <td>{{ user.lastname}}</td>
+                        <td>{{ user.email}}</td>
+
                     </tr>
                 {% if users == 0 %}
                     <tr>
