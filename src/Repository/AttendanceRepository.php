@@ -19,6 +19,28 @@ class AttendanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Attendance::class);
     }
 
+    public function findByStudent($value): ?array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.student = :val')
+            ->setParameter('val', $value)
+            ->orderBy('o.student', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findByDateAndStudent(string $value, string $date): ?array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.student LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->andWhere('u.date LIKE :date')
+            ->setParameter('date', '%'.$date.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Attendance[] Returns an array of Attendance objects
     //  */

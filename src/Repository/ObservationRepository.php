@@ -22,19 +22,21 @@ class ObservationRepository extends ServiceEntityRepository
     // /**
     //  * @return Observation[] Returns an array of Observation objects
     //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param string $value
+     * @return array|null
+     */
+    public function findByAddressee($value): ?array
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
+            ->andWhere('o.addressee = :val')
             ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('o.addressee', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Observation

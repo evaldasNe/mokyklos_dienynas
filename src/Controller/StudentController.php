@@ -3,7 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\GradeFilterType;
 use App\Form\UserType;
+use App\Repository\AchievementRepository;
+use App\Repository\AttendanceRepository;
+use App\Repository\ObservationRepository;
+use App\Repository\ScheduleRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,13 +23,15 @@ class StudentController extends AbstractController
     /**
      * @Route("/remarks", name="student_remark")
      */
-    public function showAllTeachers(UserRepository $userRepository)
+    public function showAllTeachers(ObservationRepository $observationRepository)
     {
 
-        return $this->render('student/remark.html.twig', [
-            'users' => $userRepository->findByRole('TEACHER')
+            $studentId = $this->getUser()->getId();
+        $registry = $observationRepository->findByAddressee($studentId);
 
-        ]);
+            return $this->render('student/remark.html.twig', [
+                'users' => $registry,
+                'currentRoute' => 'student_remark']);
     }
     /**
      * @Route("/homework", name="student_homework")
@@ -38,23 +45,40 @@ class StudentController extends AbstractController
     /**
      * @Route("/timetable", name="student_timetable")
      */
-    public function showAllParents(UserRepository $userRepository)
+    public function showAllParents(ScheduleRepository $scheduleRepository)
     {
 
+        $studentId = $this->getUser()->getEmail();
+        $registry = $scheduleRepository->findByEmailAndDay($studentId);
+
         return $this->render('student/timetable.html.twig', [
-            'users' => $userRepository->findByRole('PARENT'),
-        ]);
+            'users' => $registry,
+            'currentRoute' => 'student_timetable']);
     }
 
     /**
-     * @Route("/gradelist", name="student_gradelist")
+     * @Route("/gradelist", name="student_gradelist", methods={"GET", "POST"})
      */
-    public function showgradelist(UserRepository $userRepository)
+    public function showgradelist(AchievementRepository $achievementRepository,AttendanceRepository $attendanceRepository, Request $request): Response
     {
+        $form = $this->createForm(GradeFilterType::class);
+        $form->handleRequest($request);
+        $adminId = $this->getUser()->getEmail();
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $date = $request->request->get('grade_filter')['date'];
+
+            $users = $achievementRepository->findByDateAndStudent($adminId, $date);
+        } else {
+            $users = $achievementRepository->findByStudent($adminId);
+        }
 
         return $this->render('student/gradelist.html.twig', [
-            'users' => $userRepository->findByRole('PARENT'),
-        ]);
+        'users' => $users,
+        'adminId' => $adminId,
+        'form' => $form->createView(),
+        'currentRoute' => 'student_gradelist',
+    ]);
     }
 
     /**

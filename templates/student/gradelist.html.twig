@@ -4,7 +4,13 @@
 
 {% block body %}
 
-
+    <div class="container">
+    <div style="width: 300px">
+        {{ form_start(form) }}
+        {{ form_widget(form.date) }}
+        <button class="btn btn-primary">{{ button_label|default('Ieškoti') }}</button>
+        {{ form_end(form) }}
+    </div>
         <h1>Pažymiai</h1>
         <div class="example-wrapper table-responsive">
             <table class="table table-striped">
@@ -14,9 +20,9 @@
                 {% for user in users %}
                     <tr>
 
-                        <!-- <td>{{ user.city }}</td>-->
-                        <!-- <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td> -->
-                        <!-- <td>{{ user.city }}</td> -->
+                         <td>{{ user.date ? user.date|date('Y-m-d') : '' }}</td>
+                        < <td>{{ user.subject }}</td>
+                        < <td>{{ user.grade }}</td>
                     </tr>
                 {% if users == 0 %}
                     <tr>

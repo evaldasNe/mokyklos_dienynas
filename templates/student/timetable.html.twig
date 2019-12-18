@@ -11,27 +11,116 @@
                 <thead>
                 <tr>
                     <th scope="col">Pirmadienis</th>
-                    <th scope="col">Antradienis</th>
-                    <th scope="col">Trečiadienis</th>
-                    <th scope="col">Ketvirtadienis</th>
-                    <th scope="col">Penktadienis</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for user in users %}
-                    <tr>
+                    {% if user.date == 'Pirmadienis' %}
+                        <tr>
+                            <td>{{ " " }}{{ user.subject}}{{ "-" }}{{ user.time }}</td>
+                        </tr>
 
-                        <!-- <td>{{ user.city }}</td>-->
-                        <!-- <td>{{ user.birthdate ? user.birthdate|date('Y-m-d') : '' }}</td> -->
-                        <!-- <td>{{ user.city }}</td> -->
-                    </tr>
-                {% if users == 0 %}
-                    <tr>
-                        <td colspan="11">Nėra duomenų</td>
-                    </tr>
-                {% endif %}
+                    {% endif %}
+                    {% if users == 0 %}
+                        <tr>
+                            <td colspan="11">Nėra duomenų</td>
+                        </tr>
+                    {% endif %}
 
                 {% endfor %}
                 </tbody>
             </table>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Antradienis</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            {% if user.date == 'Antradienis' %}
+                                <tr>
+                                    <td>{{ " " }}{{ user.subject}}{{ "-" }}{{ user.time }}</td>
+                                </tr>
+
+                            {% endif %}
+                            {% if users == 0 %}
+                                <tr>
+                                    <td colspan="11">Nėra duomenų</td>
+                                </tr>
+                            {% endif %}
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Trečiadienis</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        {% if user.date == 'Trečiadienis' %}
+            <tr>
+                <td>{{ " " }}{{ user.subject}}{{ "-" }}{{ user.time }}</td>
+            </tr>
+
+        {% endif %}
+        {% if users == 0 %}
+            <tr>
+                <td colspan="11">Nėra duomenų</td>
+            </tr>
+        {% endif %}
+
+    {% endfor %}
+    </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Ketvirtadienis</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            {% if user.date == 'Ketvirtadienis' %}
+                <tr>
+                    <td>{{ " " }}{{ user.subject}}{{ "-" }}{{ user.time }}</td>
+                </tr>
+
+            {% endif %}
+            {% if users == 0 %}
+                <tr>
+                    <td colspan="11">Nėra duomenų</td>
+                </tr>
+            {% endif %}
+
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Penktadienis</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            {% if user.date == 'Penktadienis' %}
+                <tr>
+                    <td>{{ " " }}{{ user.subject}}{{ "-" }}{{ user.time }}</td>
+                </tr>
+
+            {% endif %}
+            {% if users == 0 %}
+                <tr>
+                    <td colspan="11">Nėra duomenų</td>
+                </tr>
+            {% endif %}
+
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
