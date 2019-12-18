@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -19,7 +20,7 @@ class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('name', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('birthdate', DateType::class)
+            ->add('birthdate', BirthdayType::class)
             ->add('city', TextType::class)
             ->add('address', TextType::class)
             ->add('postcode', IntegerType::class)
