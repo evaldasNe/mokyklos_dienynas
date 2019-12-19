@@ -21,12 +21,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class StudentController extends AbstractController
 {
     /**
-     * @Route("/remarks", name="student_remark")
+     * @Route("/remark", name="student_remark")
      */
     public function showAllTeachers(ObservationRepository $observationRepository)
     {
 
-            $studentId = $this->getUser()->getId();
+        $studentId = $this->getUser()->getId();
         $registry = $observationRepository->findByAddressee($studentId);
 
             return $this->render('student/remark.html.twig', [

@@ -4,36 +4,33 @@
 
 {% block body %}
 
+    <div class="container">
+    <div style="width: 300px">
+        {{ form_start(form) }}
+        {{ form_widget(form.date) }}
+        <button class="btn btn-primary">{{ button_label|default('Ieškoti') }}</button>
+        {{ form_end(form) }}
+    </div>
         <h1>Pažymiai</h1>
         <div class="example-wrapper table-responsive">
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">Vaikas</th>
-                    <th scope="col">Dalykas</th>
-                    <th scope="col">Pažymys</th>
-                    <th scope="col">Informacija</th>
-                </tr>
                 </thead>
                 <tbody>
+                {% for user in users %}
                     <tr>
-                        <td>Vaikas1</td>
-                        <td>Dalykas1</td>
-                        <td>8</td>
-                        <td>desc</td>
+
+                         <td>{{ user.date ? user.date|date('Y-m-d') : '' }}</td>
+                        < <td>{{ user.subject }}</td>
+                        < <td>{{ user.grade }}</td>
                     </tr>
+                {% if users == 0 %}
                     <tr>
-                        <td>Vaikas1</td>
-                        <td>Dalykas5</td>
-                        <td>9</td>
-                        <td>desc</td>
-                    </tr> 
-                    <tr>
-                        <td>Vaikas2</td>
-                        <td>Dalykas2</td>
-                        <td>10</td>
-                        <td>desc</td>
-                    </tr>                                           
+                        <td colspan="11">Nėra duomenų</td>
+                    </tr>
+                {% endif %}
+
+                {% endfor %}
                 </tbody>
             </table>
 {% endblock %}

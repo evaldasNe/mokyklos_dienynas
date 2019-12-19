@@ -8,36 +8,26 @@
         <div class="example-wrapper table-responsive">
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">Vaikas</th>
-                    <th scope="col">Uždavimo data</th>
-                    <th scope="col">Dalykas</th>
-                    <th scope="col">Iki kada reikia padaryti</th>
-                    <th scope="col">Aprašymas</th>
-                </tr>
-                </thead>
-                <tbody>
                     <tr>
-                        <td>Vaikas1</td>
-                        <td>2019 11 12</td>
-                        <td>Dalykas1</td>
-                        <td>2019 11 18</td>
-                        <td>desc</td>
+                        <th scope="col">Mokinys</th>
+                        <th scope="col">Uždavimo data</th>
+                        <th scope="col">Dalykas</th>
+                        <th scope="col">Mokytojas</th>
+                        <th scope="col">Aprašymas</th>
                     </tr>
-                    <tr>
-                        <td>Vaikas1</td>
-                        <td>2019 11 12</td>
-                        <td>Dalykas5</td>
-                        <td>2019 11 18</td>
-                        <td>desc</td>
-                    </tr> 
-                    <tr>
-                        <td>Vaikas2</td>
-                        <td>2019 11 14</td>
-                        <td>Dalykas2</td>
-                        <td>2019 11 15</td>
-                        <td>desc</td>
-                    </tr>                                           
-                </tbody>
+                </thead>     
+                {% for user in users %}
+                    {% for homeWork in homeWorks %}
+                        <tbody>
+                            <tr>
+                                <td>{{ user.name }}</td>
+                                <td>{{ homeWork.class }}</td>
+                                <td>{{ homeWork.subject }}</td>
+                                <td>{{ homeWork.teacher }}</td>
+                                <td>Uždaviniai 1-8</td>
+                             </tr>
+                        </tbody>
+                    {% endfor %}
+                {% endfor %}
             </table>
 {% endblock %}

@@ -6,106 +6,58 @@
         <h1>Pamokų tvarkaraštis</h1>
         <div class="example-wrapper table-responsive">
             <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Vaikas1</th>
-                </tr>
-                <tr>
-                    <th scope="col">Pirmadienis</th>
-                    <th scope="col">Antradienis</th>
-                    <th scope="col">Trečiadienis</th>
-                    <th scope="col">Ketvirtadienis</th>
-                    <th scope="col">Penktadienis</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>                                            
-                </tbody>
-            </table>
-
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Vaikas2</th>
-                </tr>
-                <tr>
-                    <th scope="col">Pirmadienis</th>
-                    <th scope="col">Antradienis</th>
-                    <th scope="col">Trečiadienis</th>
-                    <th scope="col">Ketvirtadienis</th>
-                    <th scope="col">Penktadienis</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>
-                    <tr>
-                        <td>Dalykas1</td>
-                        <td>Dalykas2</td>
-                        <td>Dalykas3</td>
-                        <td>Dalykas4</td>
-                        <td>Dalykas5</td>
-                    </tr>                                            
-                </tbody>
-            </table>            
+                    {% for user in users %}
+                    <thead>
+                        <tr>
+                            <th>{{ user.name}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Pirmadienis</th>
+                            <th scope="col">Antradienis</th>
+                            <th scope="col">Trečiadienis</th>
+                            <th scope="col">Ketvirtadienis</th>
+                            <th scope="col">Penktadienis</th>
+                        </tr>
+                        <tbody>
+                            {% for schedule in schedules %}
+                                    <tr>
+                                        {% for schedule in schedules %}
+                                            <td>{{ " " }}{{ schedule.subject}}{{ "-" }}{{ schedule.time }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% if date('l') == 'Monday' %} {# 0-6 Sunday-Saturday #}
+                                    <tr>
+                                        <td>{{ " " }}{{ schedule.subject}}{{ "-" }}{{ schedule.time }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if date('l') == 'Tuesday' %} {# 0-6 Sunday-Saturday #}
+                                    <tr>
+                                        <td>{{ " " }}{{ schedule.subject}}{{ "-" }}{{ schedule.time }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if date('l') == 'Wednesday' %} {# 0-6 Sunday-Saturday #}
+                                    <tr>
+                                        <td>{{ " " }}{{ schedule.subject}}{{ "-" }}{{ schedule.time }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if date('l') == 'Thursday' %} {# 0-6 Sunday-Saturday #}
+                                    <tr>
+                                        <td>{{ " " }}{{ schedule.subject}}{{ "-" }}{{ schedule.time }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if date('l') == 'Friday' %} {# 0-6 Sunday-Saturday #}
+                                    <tr>
+                                        <td>{{ " " }}{{ schedule.subject}}{{ "-" }}{{ schedule.time }}</td>
+                                    </tr>
+                                {% endif %}                                                                                                                                
+                                {% if schedules == 0 %}
+                                    <tr>
+                                        <td colspan="11">Nėra duomenų</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}  
+                        </tbody>
+                    </thead>
+                {% endfor %}
+            </table>        
 {% endblock %}
