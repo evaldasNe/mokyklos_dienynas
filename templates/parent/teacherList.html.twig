@@ -1,32 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mokytojų kontaktai{% endblock %}
+{% block title %}Pastabos{% endblock %}
 
 {% block body %}
-        <h1>Namų darbai</h1>
+
+
+        <h1>Pastabos</h1>
         <div class="example-wrapper table-responsive">
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Vardas</th>
-                    <th scope="col">Pavardė</th>
-                    <th scope="col">Dėstomas dalykas</th>
-                    <th scope="col">El.Paštas</th>
+                    <th scope="col">Mokytojo vardas</th>
+                    <th scope="col">Mokytojo pavardė</th>
+                    <th scope="col">El. paštas</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for user in users %}
                     <tr>
-                        <td>Vardenis1</td>
-                        <td>Pavardenis1</td>
-                        <td>Dalykas1</td>
-                        <td>varpav1@gmail.com</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.name}}</td>
+                        <td>{{ user.email }}</td>
                     </tr>
+                {% if users == 0 %}
                     <tr>
-                        <td>Vardenis2</td>
-                        <td>Pavardenis2</td>
-                        <td>Dalykas2</td>
-                        <td>varpav2@gmail.com</td>
-                    </tr>                    
+                        <td colspan="11">Nėra duomenų</td>
+                    </tr>
+                {% endif %}
+
+                {% endfor %}
                 </tbody>
             </table>
 {% endblock %}

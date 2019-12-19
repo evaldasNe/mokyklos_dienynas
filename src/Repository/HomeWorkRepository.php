@@ -18,7 +18,16 @@ class HomeWorkRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, HomeWork::class);
     }
-
+    public function findBySubject($value): ?array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.subject = :val')
+            ->setParameter('val', $value)
+            ->orderBy('o.subject', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return HomeWork[] Returns an array of HomeWork objects
     //  */
