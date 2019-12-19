@@ -27,7 +27,7 @@ final class Version20191212175236 extends AbstractMigration
         $this->addSql('CREATE TABLE home_work (id INT AUTO_INCREMENT NOT NULL, subject VARCHAR(255) NOT NULL, teacher VARCHAR(255) NOT NULL, class VARCHAR(255) NOT NULL, home_work_text VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE message_all (id INT AUTO_INCREMENT NOT NULL, sender VARCHAR(255) NOT NULL, text VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE message_individual (id INT AUTO_INCREMENT NOT NULL, sender VARCHAR(255) NOT NULL, addressee VARCHAR(255) NOT NULL, text VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE observation (id INT AUTO_INCREMENT NOT NULL, teacher VARCHAR(255) NOT NULL, subject VARCHAR(255) NOT NULL, observation_text VARCHAR(255) NOT NULL,, addressee VARCHAR(255) NOT NULL,date DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE observation (id INT AUTO_INCREMENT NOT NULL, teacher VARCHAR(255) NOT NULL, subject VARCHAR(255) NOT NULL, observation_text VARCHAR(255) NOT NULL, addressee VARCHAR(255) NOT NULL,date DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE schedule (id INT AUTO_INCREMENT NOT NULL, role VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, sub_id INT NOT NULL, subject VARCHAR(255) NOT NULL, date VARCHAR(255) NOT NULL, time VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE subject (id INT AUTO_INCREMENT NOT NULL, sub_id INT NOT NULL, title VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
@@ -45,6 +45,5 @@ final class Version20191212175236 extends AbstractMigration
         $this->addSql('DROP TABLE observation');
         $this->addSql('DROP TABLE schedule');
         $this->addSql('DROP TABLE subject');
-        $this->addSql('DROP TABLE user');
     }
 }

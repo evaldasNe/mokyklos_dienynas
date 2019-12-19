@@ -17,17 +17,15 @@
                     </tr>
                 </thead>     
                 {% for user in users %}
-                    {% for homeWork in homeWorks %}
                         <tbody>
                             <tr>
                                 <td>{{ user.name }}</td>
-                                <td>{{ homeWork.class }}</td>
-                                <td>{{ homeWork.subject }}</td>
-                                <td>{{ homeWork.teacher }}</td>
+                                <td>{{ user.class }}</td>
+                                <td>{{ user.subject }}</td>
+                                <td>{{ user.teacher }}</td>
                                 <td>Uždaviniai 1-8</td>
                              </tr>
                         </tbody>
-                    {% endfor %}
                 {% endfor %}
             </table>
 {% endblock %}

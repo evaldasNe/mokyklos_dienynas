@@ -55,12 +55,13 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $user->setRoles(array("ROLE_TEACHER"));
-            $user->setPassword(password_hash('password', 1));
+            $pass = $this->generateRandomPassword();
+            $user->setPassword(password_hash($pass, 1));
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
+            $this->sendEmail($user->getEmail(), $user->getName(), $pass, $mailer);
 
             return $this->redirectToRoute('admin_teachers');
         }
@@ -109,12 +110,13 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $user->setRoles(array("ROLE_STUDENT"));
-            $user->setPassword(password_hash('password', 1));
+            $pass = $this->generateRandomPassword();
+            $user->setPassword(password_hash($pass, 1));
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
+            $this->sendEmail($user->getEmail(), $user->getName(), $pass, $mailer);
 
             return $this->redirectToRoute('admin_students');
         }
@@ -164,12 +166,13 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $user->setRoles(array("ROLE_PARENT"));
-            $user->setPassword(password_hash('password', 1));
+            $pass = $this->generateRandomPassword();
+            $user->setPassword(password_hash($pass, 1));
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
+            $this->sendEmail($user->getEmail(), $user->getName(), $pass, $mailer);
 
             return $this->redirectToRoute('admin_parents');
         }
@@ -218,12 +221,13 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $user->setRoles(array("ROLE_ADMIN"));
-            $user->setPassword(password_hash('password', 1));
+            $pass = $this->generateRandomPassword();
+            $user->setPassword(password_hash($pass, 1));
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->sendEmail($user->getEmail(), $user->getName(), $mailer);
+            $this->sendEmail($user->getEmail(), $user->getName(), $pass, $mailer);
 
             return $this->redirectToRoute('admin_admins');
         }
@@ -250,9 +254,8 @@ class AdminController extends AbstractController
         return $this->redirectToRoute($request->get('nextRoute'));
     }
 
-    private function sendEmail(string $email, string $name, \Swift_Mailer $mailer)
+    private function sendEmail(string $email, string $name, string $pass, \Swift_Mailer $mailer)
     {
-        $password = $this->generateRandomPassword();
 
         $message = (new \Swift_Message('Jums sukurta dienyno paskyra'))
             ->setFrom('admin@mokyklos_dienynas.com')
@@ -263,7 +266,7 @@ class AdminController extends AbstractController
                     'emails/registration.html.twig',
                     [
                         'name' => $name,
-                        'password' => $password
+                        'password' => $pass
                     ]
                 ),
                 'text/html'
